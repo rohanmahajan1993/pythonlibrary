@@ -9,5 +9,5 @@ def function_pointer(helper, s):
     helper(s)
 def test_function_pointer():
    function_pointer(print_function, "this is working")
-test_function_pointer()
+
     
