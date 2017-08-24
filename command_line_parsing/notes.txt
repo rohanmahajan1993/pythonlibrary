@@ -1,0 +1,1 @@
+1. Key insights is just using sys.argv[0] to print out the values of everything we need.

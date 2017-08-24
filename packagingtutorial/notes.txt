@@ -1,0 +1,1 @@
+1. Pip does use call underlying setuptools and python setup.py. However, it does stuff such as fetching the libraries from its online repositories, keeping track of what packages you already have installed, and keeping track of state so that you can uninstall stuff.

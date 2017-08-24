@@ -1,5 +1,9 @@
 import classes
 import imp
+import dis
+def tester():
+   print "whats up"
+dis.dis(tester)
 a = classes.ExampleObject(5)
 
 #Tools for instance directory
@@ -18,6 +22,7 @@ print id(a) #gets you the memory address
 print imp.find_module('numpy') # shows you path where module is defined
 
 print globals() #shows  you all the globals that are defined currently
+print locals() #shows  you local information
 
 x = 5
 print eval('x + 1') # runs this code 
