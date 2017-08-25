@@ -8,8 +8,10 @@ service RsyncService {
 
 message ClientRequest {
  string filename = 1;  
+ float timestamp = 2; 
 };
 
 message ServerResponse {
  string filename = 1;  
+ bytes  response = 2;
 };

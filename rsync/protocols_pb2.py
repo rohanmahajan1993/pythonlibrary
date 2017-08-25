@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocols.proto',
   package='example',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"!\n\rClientRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\"\"\n\x0eServerResponse\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t2P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"4\n\rClientRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"4\n\x0eServerResponse\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x10\n\x08response\x18\x02 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -39,6 +39,13 @@ _CLIENTREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='example.ClientRequest.timestamp', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -52,7 +59,7 @@ _CLIENTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=61,
+  serialized_end=80,
 )
 
 
@@ -70,6 +77,13 @@ _SERVERRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='response', full_name='example.ServerResponse.response', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -82,8 +96,8 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=63,
-  serialized_end=97,
+  serialized_start=82,
+  serialized_end=134,
 )
 
 DESCRIPTOR.message_types_by_name['ClientRequest'] = _CLIENTREQUEST
