@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package example;
+
+service RsyncService {
+ rpc RsyncMethod (ClientRequest) returns (ServerResponse) {};
+}
+
+message ClientRequest {
+ string filename = 1;  
+};
+
+message ServerResponse {
+ string filename = 1;  
+};
