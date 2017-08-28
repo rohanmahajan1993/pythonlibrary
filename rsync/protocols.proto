@@ -12,6 +12,13 @@ message ClientRequest {
 };
 
 message ServerResponse {
- string filename = 1;  
- bytes  response = 2;
+ repeated File files = 1;
+ float timestamp = 2;
 };
+
+message File {
+ string filename = 1;
+ bool isDirectory = 2;
+ bytes fileContent = 3;
+}
+

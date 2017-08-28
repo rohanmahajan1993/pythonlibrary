@@ -1,1 +1,5 @@
-eThis is a timing test directory.
+1. This is a tool that is used to show the basic functionality of rsync.
+2. We use grpc for the client and the server.
+3. We don't want to be sending the entire directory everytime.
+Therefore, we make some optimizations. One optimization is we send the timestamp from the client.
+The server only sends back files that have changed since then. One problematic situation is that we don't know about deleted files. 

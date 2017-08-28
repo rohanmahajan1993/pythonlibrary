@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocols.proto',
   package='example',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"4\n\rClientRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"4\n\x0eServerResponse\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x10\n\x08response\x18\x02 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"4\n\rClientRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"A\n\x0eServerResponse\x12\x1c\n\x05\x66iles\x18\x01 \x03(\x0b\x32\r.example.File\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"B\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x12\x13\n\x0b\x66ileContent\x18\x03 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -71,16 +71,16 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='filename', full_name='example.ServerResponse.filename', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='files', full_name='example.ServerResponse.files', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='response', full_name='example.ServerResponse.response', index=1,
-      number=2, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
+      name='timestamp', full_name='example.ServerResponse.timestamp', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -97,11 +97,58 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=82,
-  serialized_end=134,
+  serialized_end=147,
 )
 
+
+_FILE = _descriptor.Descriptor(
+  name='File',
+  full_name='example.File',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='filename', full_name='example.File.filename', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='isDirectory', full_name='example.File.isDirectory', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='fileContent', full_name='example.File.fileContent', index=2,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=149,
+  serialized_end=215,
+)
+
+_SERVERRESPONSE.fields_by_name['files'].message_type = _FILE
 DESCRIPTOR.message_types_by_name['ClientRequest'] = _CLIENTREQUEST
 DESCRIPTOR.message_types_by_name['ServerResponse'] = _SERVERRESPONSE
+DESCRIPTOR.message_types_by_name['File'] = _FILE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ClientRequest = _reflection.GeneratedProtocolMessageType('ClientRequest', (_message.Message,), dict(
@@ -117,6 +164,13 @@ ServerResponse = _reflection.GeneratedProtocolMessageType('ServerResponse', (_me
   # @@protoc_insertion_point(class_scope:example.ServerResponse)
   ))
 _sym_db.RegisterMessage(ServerResponse)
+
+File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), dict(
+  DESCRIPTOR = _FILE,
+  __module__ = 'protocols_pb2'
+  # @@protoc_insertion_point(class_scope:example.File)
+  ))
+_sym_db.RegisterMessage(File)
 
 
 try:
