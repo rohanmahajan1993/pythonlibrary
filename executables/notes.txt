@@ -1,0 +1,5 @@
+There are multiples types of file formats for executable code
+For instance, There is the elf format and the shebang format.
+When we compile c for instance, it generates code in the elf format, 
+which is similar to an executable. When we run code, we run it 
+and it is similar to the shebang format.
