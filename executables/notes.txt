@@ -3,3 +3,7 @@ For instance, There is the elf format and the shebang format.
 When we compile c for instance, it generates code in the elf format, 
 which is similar to an executable. When we run code, we run it 
 and it is similar to the shebang format.
+Virtual Env basically installs different version of python and different version of site python.
+Because the path variable is gone first, the virtualenv is able to activate and deactive the paths are used.
+Autoenv is so you can isolate different environmental variables for different projects. It basically sources different bash paths
+on different occurences when you change 
