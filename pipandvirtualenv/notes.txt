@@ -1,0 +1,9 @@
+http://pyvideo.org/pycon-us-2011/pycon-2011--reverse-engineering-ian-bicking--39-s.html
+http://carljm.github.io/pipvirtualenv-preso/#1
+
+Pip is a package manager. Files are usually intalled in the site packages python files. It keeps a status of local packages that you are interested in and queries them from the remote. To find where to install the packages, it has this complicated process,the video explains how it installs this. 
+VirtualEnv allows you to have multiple different pythons, with each having different packages. This is useful when 
+you  have two different pythons 2.7 and 3.0, or if you want one python to have different versions of different libraries 
+for each python. To ensure tha a different python called, virtualenv adds the version of python to your path first, so that verision is called. To make sure packages are isntalled in the correct directory, virtualenv impacts the environment variables that pip uses to figure out where to install stuff. 
+
+Some improvments would be to basically to keep on central repository of all packages installed and thus use symlinks everywhere to avoid duplications.

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocols.proto',
   package='example',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"4\n\rClientRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"A\n\x0eServerResponse\x12\x1c\n\x05\x66iles\x18\x01 \x03(\x0b\x32\r.example.File\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"B\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x12\x13\n\x0b\x66ileContent\x18\x03 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"9\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"1\n\nClientHash\x12\x11\n\tfileNames\x18\x01 \x01(\t\x12\x10\n\x08\x66ileHash\x18\x02 \x01(\x05\"A\n\x0eServerResponse\x12\x1c\n\x05\x66iles\x18\x01 \x03(\x0b\x32\r.example.File\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"B\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x12\x13\n\x0b\x66ileContent\x18\x03 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -33,7 +33,7 @@ _CLIENTREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='filename', full_name='example.ClientRequest.filename', index=0,
+      name='directoryName', full_name='example.ClientRequest.directoryName', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -59,7 +59,45 @@ _CLIENTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=80,
+  serialized_end=85,
+)
+
+
+_CLIENTHASH = _descriptor.Descriptor(
+  name='ClientHash',
+  full_name='example.ClientHash',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='fileNames', full_name='example.ClientHash.fileNames', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='fileHash', full_name='example.ClientHash.fileHash', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=87,
+  serialized_end=136,
 )
 
 
@@ -96,8 +134,8 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=82,
-  serialized_end=147,
+  serialized_start=138,
+  serialized_end=203,
 )
 
 
@@ -141,12 +179,13 @@ _FILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=149,
-  serialized_end=215,
+  serialized_start=205,
+  serialized_end=271,
 )
 
 _SERVERRESPONSE.fields_by_name['files'].message_type = _FILE
 DESCRIPTOR.message_types_by_name['ClientRequest'] = _CLIENTREQUEST
+DESCRIPTOR.message_types_by_name['ClientHash'] = _CLIENTHASH
 DESCRIPTOR.message_types_by_name['ServerResponse'] = _SERVERRESPONSE
 DESCRIPTOR.message_types_by_name['File'] = _FILE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -157,6 +196,13 @@ ClientRequest = _reflection.GeneratedProtocolMessageType('ClientRequest', (_mess
   # @@protoc_insertion_point(class_scope:example.ClientRequest)
   ))
 _sym_db.RegisterMessage(ClientRequest)
+
+ClientHash = _reflection.GeneratedProtocolMessageType('ClientHash', (_message.Message,), dict(
+  DESCRIPTOR = _CLIENTHASH,
+  __module__ = 'protocols_pb2'
+  # @@protoc_insertion_point(class_scope:example.ClientHash)
+  ))
+_sym_db.RegisterMessage(ClientHash)
 
 ServerResponse = _reflection.GeneratedProtocolMessageType('ServerResponse', (_message.Message,), dict(
   DESCRIPTOR = _SERVERRESPONSE,
@@ -173,123 +219,28 @@ File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), dic
 _sym_db.RegisterMessage(File)
 
 
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
 
+_RSYNCSERVICE = _descriptor.ServiceDescriptor(
+  name='RsyncService',
+  full_name='example.RsyncService',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=273,
+  serialized_end=353,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='RsyncMethod',
+    full_name='example.RsyncService.RsyncMethod',
+    index=0,
+    containing_service=None,
+    input_type=_CLIENTREQUEST,
+    output_type=_SERVERRESPONSE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_RSYNCSERVICE)
 
-  class RsyncServiceStub(object):
-    # missing associated documentation comment in .proto file
-    pass
+DESCRIPTOR.services_by_name['RsyncService'] = _RSYNCSERVICE
 
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.RsyncMethod = channel.unary_unary(
-          '/example.RsyncService/RsyncMethod',
-          request_serializer=ClientRequest.SerializeToString,
-          response_deserializer=ServerResponse.FromString,
-          )
-
-
-  class RsyncServiceServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def RsyncMethod(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_RsyncServiceServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'RsyncMethod': grpc.unary_unary_rpc_method_handler(
-            servicer.RsyncMethod,
-            request_deserializer=ClientRequest.FromString,
-            response_serializer=ServerResponse.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'example.RsyncService', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaRsyncServiceServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def RsyncMethod(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaRsyncServiceStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def RsyncMethod(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    RsyncMethod.future = None
-
-
-  def beta_create_RsyncService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('example.RsyncService', 'RsyncMethod'): ClientRequest.FromString,
-    }
-    response_serializers = {
-      ('example.RsyncService', 'RsyncMethod'): ServerResponse.SerializeToString,
-    }
-    method_implementations = {
-      ('example.RsyncService', 'RsyncMethod'): face_utilities.unary_unary_inline(servicer.RsyncMethod),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_RsyncService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('example.RsyncService', 'RsyncMethod'): ClientRequest.SerializeToString,
-    }
-    response_deserializers = {
-      ('example.RsyncService', 'RsyncMethod'): ServerResponse.FromString,
-    }
-    cardinalities = {
-      'RsyncMethod': cardinality.Cardinality.UNARY_UNARY,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'example.RsyncService', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)

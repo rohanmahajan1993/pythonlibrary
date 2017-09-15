@@ -9,7 +9,7 @@ from concurrent import futures
 
 class Rsync(protocols_pb2_grpc.RsyncServiceServicer):
    def RsyncMethod(self, request, context):
-     return file_reader.process_server_directory(request.filename, request.timestamp)
+     return file_reader.process_server_directory(request.directoryName, request.timestamp)
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

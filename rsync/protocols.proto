@@ -7,9 +7,15 @@ service RsyncService {
 }
 
 message ClientRequest {
- string filename = 1;  
+ string directoryName = 1;  
  float timestamp = 2; 
 };
+
+message ClientHash {
+ string fileNames = 1;
+ int32 fileHash = 2;
+}
+
 
 message ServerResponse {
  repeated File files = 1;
