@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocols.proto',
   package='example',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"9\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"1\n\nClientHash\x12\x11\n\tfileNames\x18\x01 \x01(\t\x12\x10\n\x08\x66ileHash\x18\x02 \x01(\x05\"A\n\x0eServerResponse\x12\x1c\n\x05\x66iles\x18\x01 \x03(\x0b\x32\r.example.File\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"B\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x12\x13\n\x0b\x66ileContent\x18\x03 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"d\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12)\n\x0c\x63lientHashes\x18\x03 \x03(\x0b\x32\x13.example.ClientHash\"Y\n\nClientHash\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x19\n\x11simpleBlockHashes\x18\x02 \x03(\x05\x12\x1e\n\x16\x63omplicatedBlockHashes\x18\x03 \x03(\x0c\"A\n\x0eServerResponse\x12\x1c\n\x05\x66iles\x18\x01 \x03(\x0b\x32\r.example.File\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"B\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x12\x13\n\x0b\x66ileContent\x18\x03 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -46,6 +46,13 @@ _CLIENTREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='clientHashes', full_name='example.ClientRequest.clientHashes', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -59,7 +66,7 @@ _CLIENTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=85,
+  serialized_end=128,
 )
 
 
@@ -71,16 +78,23 @@ _CLIENTHASH = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='fileNames', full_name='example.ClientHash.fileNames', index=0,
+      name='filename', full_name='example.ClientHash.filename', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='fileHash', full_name='example.ClientHash.fileHash', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='simpleBlockHashes', full_name='example.ClientHash.simpleBlockHashes', index=1,
+      number=2, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='complicatedBlockHashes', full_name='example.ClientHash.complicatedBlockHashes', index=2,
+      number=3, type=12, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -96,8 +110,8 @@ _CLIENTHASH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=136,
+  serialized_start=130,
+  serialized_end=219,
 )
 
 
@@ -134,8 +148,8 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=203,
+  serialized_start=221,
+  serialized_end=286,
 )
 
 
@@ -179,10 +193,11 @@ _FILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=205,
-  serialized_end=271,
+  serialized_start=288,
+  serialized_end=354,
 )
 
+_CLIENTREQUEST.fields_by_name['clientHashes'].message_type = _CLIENTHASH
 _SERVERRESPONSE.fields_by_name['files'].message_type = _FILE
 DESCRIPTOR.message_types_by_name['ClientRequest'] = _CLIENTREQUEST
 DESCRIPTOR.message_types_by_name['ClientHash'] = _CLIENTHASH
@@ -226,8 +241,8 @@ _RSYNCSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=273,
-  serialized_end=353,
+  serialized_start=356,
+  serialized_end=436,
   methods=[
   _descriptor.MethodDescriptor(
     name='RsyncMethod',

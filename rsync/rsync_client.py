@@ -8,7 +8,9 @@ def run():
   channel = grpc.insecure_channel('localhost:50051')
   stub = protocols_pb2_grpc.RsyncServiceStub(channel)
   requested_filename = 'serverdir'
-  response = stub.RsyncMethod(protocols_pb2.ClientRequest(directoryName=requested_filename))
+  clientRequest = protocols_pb2.ClientRequest(directoryName=requested_filename)
+  file_reader.generate_client_hashes(requested_filename, clientRequest)
+  response = stub.RsyncMethod(clientRequest)
   file_reader.process_client_directory(response)
-  print("Client succesffully finished")
+  print("Client succesfully finished")
 run()

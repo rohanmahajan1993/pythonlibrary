@@ -9,11 +9,13 @@ service RsyncService {
 message ClientRequest {
  string directoryName = 1;  
  float timestamp = 2; 
+ repeated ClientHash clientHashes = 3;  
 };
 
 message ClientHash {
- string fileNames = 1;
- int32 fileHash = 2;
+ string filename = 1;
+ repeated int32 simpleBlockHashes = 2;
+ repeated bytes complicatedBlockHashes = 3;
 }
 
 
