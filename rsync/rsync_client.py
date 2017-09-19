@@ -10,7 +10,9 @@ def run():
   requested_filename = 'serverdir'
   clientRequest = protocols_pb2.ClientRequest(directoryName=requested_filename)
   file_reader.generate_client_hashes(requested_filename, clientRequest)
+  print "before client request"
   response = stub.RsyncMethod(clientRequest)
+  print "after client request"
   file_reader.process_client_directory(response)
   print("Client succesfully finished")
 run()

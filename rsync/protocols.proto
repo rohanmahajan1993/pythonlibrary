@@ -9,24 +9,45 @@ service RsyncService {
 message ClientRequest {
  string directoryName = 1;  
  float timestamp = 2; 
- repeated ClientHash clientHashes = 3;  
+ repeated ClientFile clientFiles= 3;  
 };
 
-message ClientHash {
- string filename = 1;
- repeated int32 simpleBlockHashes = 2;
- repeated bytes complicatedBlockHashes = 3;
+message ClientFile {
+  File file = 1;
+  repeated ClientHash clientHashes = 2;
 }
 
+message ClientHash {
+ repeated int32 simpleHash = 1;
+ repeated bytes complicatedHash = 2;
+}
 
 message ServerResponse {
- repeated File files = 1;
+ repeated NewFile newFiles = 1;
  float timestamp = 2;
+ repeated File deletedFiles= 3;
+ repeated EditedFile editedFiles= 4;
 };
+
+message EditedFile {
+ string filename = 1; 
+ repeated fileEdit = 2;
+}
+
+message FileEdit {
+ bool isBlockNumber;
+ int blockNumber;
+ bytes fileContent;
+}
+
+message NewFile {
+ File file = 1;
+ bytes fileContent = 2;
+}
+
 
 message File {
  string filename = 1;
  bool isDirectory = 2;
- bytes fileContent = 3;
 }
 
