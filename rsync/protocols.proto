@@ -31,13 +31,14 @@ message ServerResponse {
 
 message EditedFile {
  string filename = 1; 
- repeated fileEdit = 2;
+ repeated fileEdits = 2;
 }
 
 message FileEdit {
- bool isBlockNumber;
- int blockNumber;
- bytes fileContent;
+ bool isBlockNumber = 1;
+ int blockNumber = 2;
+ int numBlocks = 3;
+ bytes fileContent = 4;;
 }
 
 message NewFile {

@@ -16,38 +16,76 @@ def analyze_client_files(timestamp, clientFiles, deletedFiles, editedFiles):
         if os.path.exists(filename) and os.path.isdir(filename) == clientFile.isDirectory:
            last_modified_time = os.path.getmtime(filename)  
            if last_modified_time > timestamp:
-               analyze_client_file(clientFile)
+               editedFile = editedFiles.add()
+               editedFile.filename = filename
+               analyze_client_file(clientFile, editedFile.fileEdit)
         else:
             deleted_file = deletedFiles.add()
             deleted_file.isDirectory = clientFile.isDirectory
             deleted_file.filename = filename
     return clientFileNames
 
-def analyze_client_file(clientFile):
+
+def create_client_hashmap(clientFile):
     clientHashMap = dict()
     blockNumber = 0
     for clientHash in clientFile.clientHashes:
         hashList = clientHashMap.get(clientHash.simpleHash, [])
         hashList.append((blockNumber, clientHash.complicatedHash))
         blockNumber += 1
+    return clientHashMap
+
+def analyze_client_file(clientFile, fileEdits):
+    clientHashMap = create_client_hashmap(clientFile)
     with open(clientFile.file.filename, "rb") as fp:
-        bytes = fp.read(BLOCK_SIZE)
-        while bytes != "":
-           simpleHash = zlib.adler32(bytes) 
+        new_bytes = fp.read(BLOCK_SIZE)
+        current_bytes = ""
+        numBlocks = 0
+        previousBlock = -5
+        while new_bytes != "":
+           simpleHash = zlib.adler32(new_bytes) 
+           foundBlockMatch = False
            if simpleHash in clientHashMap:
               complicatedServerHash = generateComplicatedHash(bytes)
               hashList = clientHashMap[simpleHash]
               for blockNumber, complicatedHash in hashList:
                 if complicatedHash == complicatedServerHash:
-                    
-                else:
+                    foundBlockMatch = True
+                    if numBlocks == 0 and current_bytes != "":
+                        fileEdit = fileEdits.add()
+                        fileEdit.isBlockNumber = False
+                        fileEdit.fileContent = current_bytes
+                        current_bytes = ""
+                    elif blockNumber - numBlocks == previousBlock:
+                        numBlocks += 1
+                    else:
+                        fileEdit = fileEdits.add()
+                        fileEdit.isBlockNumber = True
+                        fileEdit.blockNumber = previousBlock
+                        fileEdit.numBlocks = numBlocks
+                        numBlocks = 1
+                        previousBlock = blockNumber
+           if not foundBlockMatch:
+               if numBlocks != 0:
+                  fileEdit = fileEdits.add()
+                  fileEdit.isBlockNumber = True
+                  fileEdit.blockNumber = previousBlock
+                  fileEdit.numBlocks = numBlocks
+                  numBlocks = 0
+               current_bytes += new_bytes[0] 
+           new_bytes = new_bytes[1] + fp.read(1) 
+        if numBlocks != 0:
+            fileEdit = fileEdits.add()
+            fileEdit.isBlockNumber = True
+            fileEdit.blockNumber = previousBlock
+            fileEdit.numBlocks = numBlocks
+        elif current_bytes != "":
+            fileEdit = fileEdits.add()
+            fileEdit.isBlockNumber = False
+            fileEdit.fileContent = current_bytes
 
-           clientHash.simpleBlockHash = simpleHash
-           sha_object = hashlib.sha1()
-           complicatedHashObject = sha_object.update(bytes)
-           complicatedHash = sha_object.digest()
-           clientHash.complicatedHash = complicatedHash
-           bytes = fp.read(BLOCK_SIZE) 
+            
+
 
 
 #Have to handle weird case where file is deleted and directory is created with same name

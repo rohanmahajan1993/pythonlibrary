@@ -1,0 +1,7 @@
+synthax = "proto3";
+
+package git;
+
+message Commit {
+
+}
