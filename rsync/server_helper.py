@@ -40,6 +40,7 @@ def create_client_hashmap(clientFile):
 
 def analyze_client_file(clientFile, fileEdits):
     clientHashMap = create_client_hashmap(clientFile)
+    print clientFile.file.filename
     with open(clientFile.file.filename, "rb") as fp:
         new_bytes = fp.read(BLOCK_SIZE)
         current_bytes = ""
@@ -54,6 +55,7 @@ def analyze_client_file(clientFile, fileEdits):
               for blockNumber, complicatedHash in hashList:
                 if complicatedHash == complicatedServerHash:
                     foundBlockMatch = True
+                    new_bytes = fp.read(BLOCK_SIZE) 
                     if numBlocks == 0 and current_bytes != "":
                         fileEdit = fileEdits.add()
                         fileEdit.isBlockNumber = False
@@ -75,8 +77,7 @@ def analyze_client_file(clientFile, fileEdits):
                   fileEdit.blockNumber = previousBlock
                   fileEdit.numBlocks = numBlocks
                   numBlocks = 0
-               current_bytes += new_bytes[0] 
-           new_bytes = new_bytes[1] + fp.read(1) 
+                  current_bytes += new_bytes[0] 
         if numBlocks != 0:
             fileEdit = fileEdits.add()
             fileEdit.isBlockNumber = True
