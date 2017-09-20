@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocols.proto',
   package='example',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"d\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12)\n\x0c\x63lientHashes\x18\x03 \x03(\x0b\x32\x13.example.ClientHash\"Y\n\nClientHash\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x19\n\x11simpleBlockHashes\x18\x02 \x03(\x05\x12\x1e\n\x16\x63omplicatedBlockHashes\x18\x03 \x03(\x0c\"A\n\x0eServerResponse\x12\x1c\n\x05\x66iles\x18\x01 \x03(\x0b\x32\r.example.File\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\"B\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x12\x13\n\x0b\x66ileContent\x18\x03 \x01(\x0c\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"c\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12(\n\x0b\x63lientFiles\x18\x03 \x03(\x0b\x32\x13.example.ClientFile\"T\n\nClientFile\x12\x1b\n\x04\x66ile\x18\x01 \x01(\x0b\x32\r.example.File\x12)\n\x0c\x63lientHashes\x18\x02 \x03(\x0b\x32\x13.example.ClientHash\"9\n\nClientHash\x12\x12\n\nsimpleHash\x18\x01 \x01(\x05\x12\x17\n\x0f\x63omplicatedHash\x18\x02 \x01(\x0c\"\x96\x01\n\x0eServerResponse\x12\"\n\x08newFiles\x18\x01 \x03(\x0b\x32\x10.example.NewFile\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12#\n\x0c\x64\x65letedFiles\x18\x03 \x03(\x0b\x32\r.example.File\x12(\n\x0b\x65\x64itedFiles\x18\x04 \x03(\x0b\x32\x13.example.EditedFile\"D\n\nEditedFile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12$\n\tfileEdits\x18\x02 \x03(\x0b\x32\x11.example.FileEdit\"^\n\x08\x46ileEdit\x12\x15\n\risBlockNumber\x18\x01 \x01(\x08\x12\x13\n\x0b\x62lockNumber\x18\x02 \x01(\x05\x12\x11\n\tnumBlocks\x18\x03 \x01(\x05\x12\x13\n\x0b\x66ileContent\x18\x04 \x01(\x0c\";\n\x07NewFile\x12\x1b\n\x04\x66ile\x18\x01 \x01(\x0b\x32\r.example.File\x12\x13\n\x0b\x66ileContent\x18\x02 \x01(\x0c\"-\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -47,7 +47,7 @@ _CLIENTREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='clientHashes', full_name='example.ClientRequest.clientHashes', index=2,
+      name='clientFiles', full_name='example.ClientRequest.clientFiles', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -66,34 +66,27 @@ _CLIENTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=128,
+  serialized_end=127,
 )
 
 
-_CLIENTHASH = _descriptor.Descriptor(
-  name='ClientHash',
-  full_name='example.ClientHash',
+_CLIENTFILE = _descriptor.Descriptor(
+  name='ClientFile',
+  full_name='example.ClientFile',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='filename', full_name='example.ClientHash.filename', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='file', full_name='example.ClientFile.file', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='simpleBlockHashes', full_name='example.ClientHash.simpleBlockHashes', index=1,
-      number=2, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='complicatedBlockHashes', full_name='example.ClientHash.complicatedBlockHashes', index=2,
-      number=3, type=12, cpp_type=9, label=3,
+      name='clientHashes', full_name='example.ClientFile.clientHashes', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -110,8 +103,46 @@ _CLIENTHASH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=130,
-  serialized_end=219,
+  serialized_start=129,
+  serialized_end=213,
+)
+
+
+_CLIENTHASH = _descriptor.Descriptor(
+  name='ClientHash',
+  full_name='example.ClientHash',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='simpleHash', full_name='example.ClientHash.simpleHash', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='complicatedHash', full_name='example.ClientHash.complicatedHash', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=215,
+  serialized_end=272,
 )
 
 
@@ -123,7 +154,7 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='files', full_name='example.ServerResponse.files', index=0,
+      name='newFiles', full_name='example.ServerResponse.newFiles', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -136,6 +167,20 @@ _SERVERRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='deletedFiles', full_name='example.ServerResponse.deletedFiles', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='editedFiles', full_name='example.ServerResponse.editedFiles', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -148,8 +193,136 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=221,
-  serialized_end=286,
+  serialized_start=275,
+  serialized_end=425,
+)
+
+
+_EDITEDFILE = _descriptor.Descriptor(
+  name='EditedFile',
+  full_name='example.EditedFile',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='filename', full_name='example.EditedFile.filename', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='fileEdits', full_name='example.EditedFile.fileEdits', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=427,
+  serialized_end=495,
+)
+
+
+_FILEEDIT = _descriptor.Descriptor(
+  name='FileEdit',
+  full_name='example.FileEdit',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='isBlockNumber', full_name='example.FileEdit.isBlockNumber', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='blockNumber', full_name='example.FileEdit.blockNumber', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='numBlocks', full_name='example.FileEdit.numBlocks', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='fileContent', full_name='example.FileEdit.fileContent', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=497,
+  serialized_end=591,
+)
+
+
+_NEWFILE = _descriptor.Descriptor(
+  name='NewFile',
+  full_name='example.NewFile',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='file', full_name='example.NewFile.file', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='fileContent', full_name='example.NewFile.fileContent', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=593,
+  serialized_end=652,
 )
 
 
@@ -174,13 +347,6 @@ _FILE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-    _descriptor.FieldDescriptor(
-      name='fileContent', full_name='example.File.fileContent', index=2,
-      number=3, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
   ],
   extensions=[
   ],
@@ -193,15 +359,25 @@ _FILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=288,
-  serialized_end=354,
+  serialized_start=654,
+  serialized_end=699,
 )
 
-_CLIENTREQUEST.fields_by_name['clientHashes'].message_type = _CLIENTHASH
-_SERVERRESPONSE.fields_by_name['files'].message_type = _FILE
+_CLIENTREQUEST.fields_by_name['clientFiles'].message_type = _CLIENTFILE
+_CLIENTFILE.fields_by_name['file'].message_type = _FILE
+_CLIENTFILE.fields_by_name['clientHashes'].message_type = _CLIENTHASH
+_SERVERRESPONSE.fields_by_name['newFiles'].message_type = _NEWFILE
+_SERVERRESPONSE.fields_by_name['deletedFiles'].message_type = _FILE
+_SERVERRESPONSE.fields_by_name['editedFiles'].message_type = _EDITEDFILE
+_EDITEDFILE.fields_by_name['fileEdits'].message_type = _FILEEDIT
+_NEWFILE.fields_by_name['file'].message_type = _FILE
 DESCRIPTOR.message_types_by_name['ClientRequest'] = _CLIENTREQUEST
+DESCRIPTOR.message_types_by_name['ClientFile'] = _CLIENTFILE
 DESCRIPTOR.message_types_by_name['ClientHash'] = _CLIENTHASH
 DESCRIPTOR.message_types_by_name['ServerResponse'] = _SERVERRESPONSE
+DESCRIPTOR.message_types_by_name['EditedFile'] = _EDITEDFILE
+DESCRIPTOR.message_types_by_name['FileEdit'] = _FILEEDIT
+DESCRIPTOR.message_types_by_name['NewFile'] = _NEWFILE
 DESCRIPTOR.message_types_by_name['File'] = _FILE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -211,6 +387,13 @@ ClientRequest = _reflection.GeneratedProtocolMessageType('ClientRequest', (_mess
   # @@protoc_insertion_point(class_scope:example.ClientRequest)
   ))
 _sym_db.RegisterMessage(ClientRequest)
+
+ClientFile = _reflection.GeneratedProtocolMessageType('ClientFile', (_message.Message,), dict(
+  DESCRIPTOR = _CLIENTFILE,
+  __module__ = 'protocols_pb2'
+  # @@protoc_insertion_point(class_scope:example.ClientFile)
+  ))
+_sym_db.RegisterMessage(ClientFile)
 
 ClientHash = _reflection.GeneratedProtocolMessageType('ClientHash', (_message.Message,), dict(
   DESCRIPTOR = _CLIENTHASH,
@@ -226,6 +409,27 @@ ServerResponse = _reflection.GeneratedProtocolMessageType('ServerResponse', (_me
   ))
 _sym_db.RegisterMessage(ServerResponse)
 
+EditedFile = _reflection.GeneratedProtocolMessageType('EditedFile', (_message.Message,), dict(
+  DESCRIPTOR = _EDITEDFILE,
+  __module__ = 'protocols_pb2'
+  # @@protoc_insertion_point(class_scope:example.EditedFile)
+  ))
+_sym_db.RegisterMessage(EditedFile)
+
+FileEdit = _reflection.GeneratedProtocolMessageType('FileEdit', (_message.Message,), dict(
+  DESCRIPTOR = _FILEEDIT,
+  __module__ = 'protocols_pb2'
+  # @@protoc_insertion_point(class_scope:example.FileEdit)
+  ))
+_sym_db.RegisterMessage(FileEdit)
+
+NewFile = _reflection.GeneratedProtocolMessageType('NewFile', (_message.Message,), dict(
+  DESCRIPTOR = _NEWFILE,
+  __module__ = 'protocols_pb2'
+  # @@protoc_insertion_point(class_scope:example.NewFile)
+  ))
+_sym_db.RegisterMessage(NewFile)
+
 File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), dict(
   DESCRIPTOR = _FILE,
   __module__ = 'protocols_pb2'
@@ -234,28 +438,123 @@ File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), dic
 _sym_db.RegisterMessage(File)
 
 
+try:
+  # THESE ELEMENTS WILL BE DEPRECATED.
+  # Please use the generated *_pb2_grpc.py files instead.
+  import grpc
+  from grpc.beta import implementations as beta_implementations
+  from grpc.beta import interfaces as beta_interfaces
+  from grpc.framework.common import cardinality
+  from grpc.framework.interfaces.face import utilities as face_utilities
 
-_RSYNCSERVICE = _descriptor.ServiceDescriptor(
-  name='RsyncService',
-  full_name='example.RsyncService',
-  file=DESCRIPTOR,
-  index=0,
-  options=None,
-  serialized_start=356,
-  serialized_end=436,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='RsyncMethod',
-    full_name='example.RsyncService.RsyncMethod',
-    index=0,
-    containing_service=None,
-    input_type=_CLIENTREQUEST,
-    output_type=_SERVERRESPONSE,
-    options=None,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_RSYNCSERVICE)
 
-DESCRIPTOR.services_by_name['RsyncService'] = _RSYNCSERVICE
+  class RsyncServiceStub(object):
+    # missing associated documentation comment in .proto file
+    pass
 
+    def __init__(self, channel):
+      """Constructor.
+
+      Args:
+        channel: A grpc.Channel.
+      """
+      self.RsyncMethod = channel.unary_unary(
+          '/example.RsyncService/RsyncMethod',
+          request_serializer=ClientRequest.SerializeToString,
+          response_deserializer=ServerResponse.FromString,
+          )
+
+
+  class RsyncServiceServicer(object):
+    # missing associated documentation comment in .proto file
+    pass
+
+    def RsyncMethod(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
+
+  def add_RsyncServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        'RsyncMethod': grpc.unary_unary_rpc_method_handler(
+            servicer.RsyncMethod,
+            request_deserializer=ClientRequest.FromString,
+            response_serializer=ServerResponse.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        'example.RsyncService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+  class BetaRsyncServiceServicer(object):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This class was generated
+    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
+    # missing associated documentation comment in .proto file
+    pass
+    def RsyncMethod(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+
+
+  class BetaRsyncServiceStub(object):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This class was generated
+    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
+    # missing associated documentation comment in .proto file
+    pass
+    def RsyncMethod(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      # missing associated documentation comment in .proto file
+      pass
+      raise NotImplementedError()
+    RsyncMethod.future = None
+
+
+  def beta_create_RsyncService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This function was
+    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
+    request_deserializers = {
+      ('example.RsyncService', 'RsyncMethod'): ClientRequest.FromString,
+    }
+    response_serializers = {
+      ('example.RsyncService', 'RsyncMethod'): ServerResponse.SerializeToString,
+    }
+    method_implementations = {
+      ('example.RsyncService', 'RsyncMethod'): face_utilities.unary_unary_inline(servicer.RsyncMethod),
+    }
+    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
+    return beta_implementations.server(method_implementations, options=server_options)
+
+
+  def beta_create_RsyncService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This function was
+    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
+    request_serializers = {
+      ('example.RsyncService', 'RsyncMethod'): ClientRequest.SerializeToString,
+    }
+    response_deserializers = {
+      ('example.RsyncService', 'RsyncMethod'): ServerResponse.FromString,
+    }
+    cardinalities = {
+      'RsyncMethod': cardinality.Cardinality.UNARY_UNARY,
+    }
+    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
+    return beta_implementations.dynamic_stub(channel, 'example.RsyncService', cardinalities, options=stub_options)
+except ImportError:
+  pass
 # @@protoc_insertion_point(module_scope)

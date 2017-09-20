@@ -18,8 +18,8 @@ message ClientFile {
 }
 
 message ClientHash {
- repeated int32 simpleHash = 1;
- repeated bytes complicatedHash = 2;
+ int32 simpleHash = 1;
+ bytes complicatedHash = 2;
 }
 
 message ServerResponse {
@@ -31,13 +31,13 @@ message ServerResponse {
 
 message EditedFile {
  string filename = 1; 
- repeated fileEdits = 2;
+ repeated FileEdit fileEdits = 2;
 }
 
 message FileEdit {
  bool isBlockNumber = 1;
- int blockNumber = 2;
- int numBlocks = 3;
+ int32 blockNumber = 2;
+ int32 numBlocks = 3;
  bytes fileContent = 4;;
 }
 

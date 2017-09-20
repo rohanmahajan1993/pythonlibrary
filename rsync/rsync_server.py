@@ -1,15 +1,14 @@
 import grpc
 import time
-import file_reader
+import server_helper
 
-import protocols_pb2
 import protocols_pb2_grpc
 
 from concurrent import futures
 
 class Rsync(protocols_pb2_grpc.RsyncServiceServicer):
    def RsyncMethod(self, request, context):
-     return file_reader.process_server_directory(request.directoryName, request.timestamp)
+     return server_helper.process_server_directory(request)
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
