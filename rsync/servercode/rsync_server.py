@@ -1,8 +1,12 @@
+import sys
+sys.path.append('../')
+
 import grpc
 import time
-import server_helper
 
 import protocols_pb2_grpc
+import server_helper
+
 
 from concurrent import futures
 

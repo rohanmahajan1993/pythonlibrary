@@ -23,7 +23,7 @@ def analyze_client_files(timestamp, clientFiles, deletedFiles, editedFiles):
                analyze_client_file(clientFile, editedFile.fileEdits)
         else:
             deleted_file = deletedFiles.add()
-            deleted_file.isDirectory = clientFile.isDirectory
+            deleted_file.isDirectory = clientFile.file.isDirectory
             deleted_file.filename = filename
     return clientFileNames
 
@@ -37,7 +37,22 @@ def create_client_hashmap(clientFile):
         blockNumber += 1
     return clientHashMap
 
-def analyze_client_file(clientFile, fileEdits):
+def fileEditHelper(editedFiles, fileEdits, isBlockNumber, fileName, blockNumber=0, fileContent="", numBlocks=0):
+    if fileEdits == None:
+        editedFile = editedFiles.add()
+        editedFile.fileName = fileName
+        fileEdits = editedFile.fileEdits
+    fileEdit = fileEdits.add()
+    fileEdit.isBlockNumber = isBlockNumber
+    if isBlockNumber:
+        fileEdit.numBlocks = numBlocks
+        fileEdit.blockNumber = blockNumber
+    else:
+        fileEdit.fileContent = fileContent
+    return fileEdits
+
+def analyze_client_file(clientFile, editedFiles):
+    fileEdits = None
     clientHashMap = create_client_hashmap(clientFile)
     print clientFile.file.filename
     with open(clientFile.file.filename, "rb") as fp:
@@ -56,37 +71,24 @@ def analyze_client_file(clientFile, fileEdits):
                     foundBlockMatch = True
                     new_bytes = fp.read(BLOCK_SIZE) 
                     if numBlocks == 0 and current_bytes != "":
-                        fileEdit = fileEdits.add()
-                        fileEdit.isBlockNumber = False
-                        fileEdit.fileContent = current_bytes
+                        fileEdits = fileEditHelper(editedFiles, fileEdits, clientFile.file.fileName, False, fileContent=current_bytes)
                         current_bytes = ""
                     elif blockNumber - numBlocks == previousBlock:
                         numBlocks += 1
                     else:
-                        fileEdit = fileEdits.add()
-                        fileEdit.isBlockNumber = True
-                        fileEdit.blockNumber = previousBlock
-                        fileEdit.numBlocks = numBlocks
+                        fileEdits = fileEditHelper(editedFiles, fileEdits, clientFile.file.fileName, True, blockNumber=previousBlock, numBlocks=numBlocks)
                         numBlocks = 1
                         previousBlock = blockNumber
            if not foundBlockMatch:
                if numBlocks != 0:
-                  fileEdit = fileEdits.add()
-                  fileEdit.isBlockNumber = True
-                  fileEdit.blockNumber = previousBlock
-                  fileEdit.numBlocks = numBlocks
+                  fileEdits = fileEditHelper(editedFiles, fileEdits, clientFile.file.fileName, True, blockNumber=previousBlock, numBlocks=numBlocks)
                   numBlocks = 0
                   current_bytes += new_bytes[0] 
                new_bytes = new_bytes[1:] + fp.read(1)
         if numBlocks != 0:
-            fileEdit = fileEdits.add()
-            fileEdit.isBlockNumber = True
-            fileEdit.blockNumber = previousBlock
-            fileEdit.numBlocks = numBlocks
+            fileEdits = fileEditHelper(editedFiles, fileEdits, clientFile.file.fileName, True, blockNumber=previousBlock, numBlocks=numBlocks)
         elif current_bytes != "":
-            fileEdit = fileEdits.add()
-            fileEdit.isBlockNumber = False
-            fileEdit.fileContent = current_bytes
+            fileEdits = fileEditHelper(editedFiles, fileEdits, clientFile.file.fileName, False, fileContent=current_bytes)
 
 
 #Have to handle weird case where file is deleted and directory is created with same name

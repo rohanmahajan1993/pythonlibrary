@@ -5,4 +5,4 @@ We don't want to be sending the entire directory everytime.
 Therefore, we make some optimizations. One optimization is we send the timestamp from the client.
 The server only sends back files that have changed since then. One problematic situation is that we don't know about deleted files. 
 
-Some future options would be to make this multithreaded.
+We have seperate directories for rsync client and rsync server to make it easier for testing, as in real life scenearioes they would be running in different locations
