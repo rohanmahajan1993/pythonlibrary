@@ -35,6 +35,7 @@ def handle_new_files(new_files):
    for newFile in new_files:
          filename = newFile.file.filename
          clientname = os.path.join("clientdir", filename)          
+         print "newfiles", clientname
          if newFile.file.isDirectory:
 	      os.mkdir(clientname)
          else:
@@ -52,8 +53,9 @@ def handle_edited_files(editedFiles):
     for editedFile in editedFiles:
         filename = editedFile.filename
         clientname = os.path.join("clientdir", filename) 
+        print "edited files", clientname
         with open("temp.txt", "wb") as newFile:
-            with open("clientname", "rb") as oldFile:
+            with open(clientname, "rb") as oldFile:
                 for fileEdit in editedFile.fileEdits:
                     if fileEdit.isBlockNumber:
                          oldFile.seek(fileEdit.blockNumber)
