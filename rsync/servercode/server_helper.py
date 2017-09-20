@@ -18,9 +18,7 @@ def analyze_client_files(timestamp, clientFiles, deletedFiles, editedFiles):
            print "the filename is", filename
            last_modified_time = os.path.getmtime(filename)  
            if last_modified_time > timestamp and not clientFile.file.isDirectory:
-               editedFile = editedFiles.add()
-               editedFile.filename = filename
-               analyze_client_file(clientFile, editedFile.fileEdits)
+               analyze_client_file(clientFile, editedFiles)
         else:
             deleted_file = deletedFiles.add()
             deleted_file.isDirectory = clientFile.file.isDirectory
