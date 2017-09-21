@@ -4,7 +4,6 @@ import protocols_pb2
 import hashlib
 import sys
 import os
-import time
 import zlib
 
 """
@@ -18,16 +17,15 @@ the file has to be deleted. If a file is found in both, we analyze it to be dele
 Some tricky situations involve a directory being deleted and new a file with the same being
 created and vice-versa.
 """
-def analyze_client_files(timestamp, clientFiles, deletedFiles, editedFiles):
+def analyze_client_files( clientFiles, deletedFiles, editedFiles):
     clientFileNames = dict()
     for clientFile in clientFiles:
         filename = clientFile.file.filename
         clientFileNames[filename] = clientFile.file.isDirectory
         if os.path.exists(filename) and os.path.isdir(
                 filename) == clientFile.file.isDirectory:
-            print "the filename in clientFileNames", filename
-            last_modified_time = os.path.getmtime(filename)
-            if last_modified_time > timestamp and not clientFile.file.isDirectory:
+            if not clientFile.file.isDirectory:
+                print "the filename in clientFileNames", filename
                 analyze_client_file(clientFile, editedFiles)
         else:
             deleted_file = deletedFiles.add()
@@ -142,7 +140,7 @@ def analyze_client_file(clientFile, editedFiles):
                     numBlocks = 0
                 current_bytes += new_bytes[0]
                 new_bytes = new_bytes[1:] + fp.read(1)
-        if numBlocks != 0:
+        if numBlocks != 0 and not fileEdits:
             fileEdits = fileEditHelper(
                 editedFiles,
                 fileEdits,
@@ -186,9 +184,8 @@ This is the root parent method and is responsible for finding all the edited, de
 def process_server_directory(clientRequest):
     serverResponse = protocols_pb2.ServerResponse()
     clientFileNames = analyze_client_files(
-        clientRequest.timestamp, clientRequest.clientFiles,
+        clientRequest.clientFiles,
         serverResponse.deletedFiles, serverResponse.editedFiles)
     find_new_files(clientRequest.directoryName, clientFileNames,
                          serverResponse.newFiles)
-    serverResponse.timestamp = time.time()
     return serverResponse

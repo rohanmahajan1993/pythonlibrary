@@ -15,7 +15,7 @@ class RsyncServiceStub(object):
       channel: A grpc.Channel.
     """
     self.RsyncMethod = channel.unary_unary(
-        '/example.RsyncService/RsyncMethod',
+        '/RSynce.RsyncService/RsyncMethod',
         request_serializer=protocols__pb2.ClientRequest.SerializeToString,
         response_deserializer=protocols__pb2.ServerResponse.FromString,
         )
@@ -42,5 +42,5 @@ def add_RsyncServiceServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'example.RsyncService', rpc_method_handlers)
+      'RSynce.RsyncService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

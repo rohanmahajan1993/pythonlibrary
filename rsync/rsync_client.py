@@ -10,7 +10,6 @@ def run(clientPrefix, requestedFilename):
   stub = protocols_pb2_grpc.RsyncServiceStub(channel)
   clientRequest = protocols_pb2.ClientRequest(directoryName=requestedFilename)
   client_helper.generate_client_hashes(clientPrefix, requestedFilename, clientRequest)
-  client_helper.get_time(clientRequest)
   response = stub.RsyncMethod(clientRequest)
   client_helper.process_client_directory(clientPrefix, response)
   print("Client succesfully finished")

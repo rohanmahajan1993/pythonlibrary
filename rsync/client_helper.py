@@ -2,6 +2,8 @@ import file_reader
 import protocols_pb2
 
 import os
+import shutil
+
 import zlib
 
 """
@@ -11,16 +13,6 @@ and the second part is to analyze the server response.
 """
 
 #Generating Client Request
-
-"""
-This method is responsible for updating the timestamp if it exists.
-The first time rsync client is used, the timestamp won't exist.
-"""
-
-def get_time(clientRequest):
-    if os.path.exists(".time"):
-        bytes = file_reader.file_read(".time")
-        clientRequest.timestamp = float(bytes)
 
 """
 This method is responsible for generating the checksums for a specific file.
@@ -40,7 +32,6 @@ This method recursively goes through every file and directory and creates the ch
 We do not create checksums for directory and just include the name.
 """
 def generate_client_hashes(prefix, basefile, clientRequest):
-     currentDirectory = os.getcwd()
      clientName = os.path.join(prefix, basefile)
      tuples = os.walk(clientName) 
      for directory, _, filenames in tuples:
@@ -57,15 +48,13 @@ def generate_client_hashes(prefix, basefile, clientRequest):
 # Analyzing Server Response
 
 """
-This method is responsible for handling the server response and using it to update the client response. The four components
-are deleting files, creating new files, and editing files and updating the timestamp.
+This method is responsible for handling the server response and using it to update the client workspace. The three components are deleting files, creating new files, and editing files.
 """
+
 def process_client_directory(prefix, serverResponse):
     base_iterator(serverResponse.deletedFiles, simple_name_extractor, prefix, handle_deleted_file)
     base_iterator(serverResponse.newFiles, complicated_name_extractor, prefix, handle_new_file)
     base_iterator(serverResponse.editedFiles, simple_name_extractor, prefix, handle_edited_file)
-    bytes = str(serverResponse.timestamp)
-    file_reader.file_write(".time", bytes) 
 
 """
 Method that iterates through all of the files, regardless of type, and adds
@@ -81,6 +70,7 @@ This handler stuff is slightly unelegant because we have to have two different
 name extractor. This is because editedFiles can not be a directory and for deletedFiles
 we don't care if it is a directory, but for newFiles they can be a directory. The 
 tradeoff was mode for logical reasoning about the types versus the inlegance of the code.
+
 """
 def simple_name_extractor(file):
     return file.filename
@@ -100,22 +90,24 @@ def handle_new_file(filename, newFile):
     else:
         file_reader.file_write(filename, newFile.fileContent)
 """
-This method deletes files and directories, that were found on the client but not on the server. 
+This method deletes files and directories, that were found on the client but not on the server.If we are deleting a directory, we delete everything inside of it because we do not efficiently
+handle directory renames. This is also why we have the os.path.exists check in case we already
+deleted a file.
 """
 def handle_deleted_file(filename, deletedFile):
-        print "the deleted file name is", filename
-        if deletedFile.isDirectory: 
-            os.rmdir(filename)
-        else:
-            os.remove(filename)
+        if os.path.exists(filename):
+            print "the deleted file name is", filename
+            if deletedFile.isDirectory: 
+                shutil.rmtree(filename)
+            else:
+                os.remove(filename)
 """
 This method uses the diff to construct a new file. Because we need the oldFile,
 we create a new file called temp.txt, while still using the oldFile, and once 
 we're done, rename this tempfile to the appropriate fileName.
 """
 def handle_edited_file(filename, editedFile):
-        import pdb
-        pdb.set_trace()
+        print "the edited filename is", filename
         with open(".TEMP", "wb") as newFile:
             with open(filename, "rb") as oldFile:
                 for fileEdit in editedFile.fileEdits:

@@ -8,8 +8,7 @@ service RsyncService {
 
 message ClientRequest {
  string directoryName = 1;  
- float timestamp = 2; 
- repeated ClientFile clientFiles= 3;  
+ repeated ClientFile clientFiles= 2;  
 };
 
 message ClientFile {
@@ -24,9 +23,8 @@ message ClientHash {
 
 message ServerResponse {
  repeated NewFile newFiles = 1;
- float timestamp = 2;
- repeated File deletedFiles= 3;
- repeated EditedFile editedFiles= 4;
+ repeated File deletedFiles= 2;
+ repeated EditedFile editedFiles= 3;
 };
 
 message EditedFile {

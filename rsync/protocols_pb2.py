@@ -17,9 +17,9 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocols.proto',
-  package='example',
+  package='RSynce',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fprotocols.proto\x12\x07\x65xample\"c\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12(\n\x0b\x63lientFiles\x18\x03 \x03(\x0b\x32\x13.example.ClientFile\"T\n\nClientFile\x12\x1b\n\x04\x66ile\x18\x01 \x01(\x0b\x32\r.example.File\x12)\n\x0c\x63lientHashes\x18\x02 \x03(\x0b\x32\x13.example.ClientHash\"9\n\nClientHash\x12\x12\n\nsimpleHash\x18\x01 \x01(\x05\x12\x17\n\x0f\x63omplicatedHash\x18\x02 \x01(\x0c\"\x96\x01\n\x0eServerResponse\x12\"\n\x08newFiles\x18\x01 \x03(\x0b\x32\x10.example.NewFile\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12#\n\x0c\x64\x65letedFiles\x18\x03 \x03(\x0b\x32\r.example.File\x12(\n\x0b\x65\x64itedFiles\x18\x04 \x03(\x0b\x32\x13.example.EditedFile\"D\n\nEditedFile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12$\n\tfileEdits\x18\x02 \x03(\x0b\x32\x11.example.FileEdit\"^\n\x08\x46ileEdit\x12\x15\n\risBlockNumber\x18\x01 \x01(\x08\x12\x13\n\x0b\x62lockNumber\x18\x02 \x01(\x05\x12\x11\n\tnumBlocks\x18\x03 \x01(\x05\x12\x13\n\x0b\x66ileContent\x18\x04 \x01(\x0c\";\n\x07NewFile\x12\x1b\n\x04\x66ile\x18\x01 \x01(\x0b\x32\r.example.File\x12\x13\n\x0b\x66ileContent\x18\x02 \x01(\x0c\"-\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x32P\n\x0cRsyncService\x12@\n\x0bRsyncMethod\x12\x16.example.ClientRequest\x1a\x17.example.ServerResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotocols.proto\x12\x06RSynce\"O\n\rClientRequest\x12\x15\n\rdirectoryName\x18\x01 \x01(\t\x12\'\n\x0b\x63lientFiles\x18\x02 \x03(\x0b\x32\x12.RSynce.ClientFile\"R\n\nClientFile\x12\x1a\n\x04\x66ile\x18\x01 \x01(\x0b\x32\x0c.RSynce.File\x12(\n\x0c\x63lientHashes\x18\x02 \x03(\x0b\x32\x12.RSynce.ClientHash\"9\n\nClientHash\x12\x12\n\nsimpleHash\x18\x01 \x01(\x05\x12\x17\n\x0f\x63omplicatedHash\x18\x02 \x01(\x0c\"\x80\x01\n\x0eServerResponse\x12!\n\x08newFiles\x18\x01 \x03(\x0b\x32\x0f.RSynce.NewFile\x12\"\n\x0c\x64\x65letedFiles\x18\x02 \x03(\x0b\x32\x0c.RSynce.File\x12\'\n\x0b\x65\x64itedFiles\x18\x03 \x03(\x0b\x32\x12.RSynce.EditedFile\"C\n\nEditedFile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12#\n\tfileEdits\x18\x02 \x03(\x0b\x32\x10.RSynce.FileEdit\"^\n\x08\x46ileEdit\x12\x15\n\risBlockNumber\x18\x01 \x01(\x08\x12\x13\n\x0b\x62lockNumber\x18\x02 \x01(\x05\x12\x11\n\tnumBlocks\x18\x03 \x01(\x05\x12\x13\n\x0b\x66ileContent\x18\x04 \x01(\x0c\":\n\x07NewFile\x12\x1a\n\x04\x66ile\x18\x01 \x01(\x0b\x32\x0c.RSynce.File\x12\x13\n\x0b\x66ileContent\x18\x02 \x01(\x0c\"-\n\x04\x46ile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x13\n\x0bisDirectory\x18\x02 \x01(\x08\x32N\n\x0cRsyncService\x12>\n\x0bRsyncMethod\x12\x15.RSynce.ClientRequest\x1a\x16.RSynce.ServerResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -27,65 +27,20 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _CLIENTREQUEST = _descriptor.Descriptor(
   name='ClientRequest',
-  full_name='example.ClientRequest',
+  full_name='RSynce.ClientRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='directoryName', full_name='example.ClientRequest.directoryName', index=0,
+      name='directoryName', full_name='RSynce.ClientRequest.directoryName', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='timestamp', full_name='example.ClientRequest.timestamp', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='clientFiles', full_name='example.ClientRequest.clientFiles', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=28,
-  serialized_end=127,
-)
-
-
-_CLIENTFILE = _descriptor.Descriptor(
-  name='ClientFile',
-  full_name='example.ClientFile',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='file', full_name='example.ClientFile.file', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='clientHashes', full_name='example.ClientFile.clientHashes', index=1,
+      name='clientFiles', full_name='RSynce.ClientRequest.clientFiles', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -103,27 +58,65 @@ _CLIENTFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=129,
-  serialized_end=213,
+  serialized_start=27,
+  serialized_end=106,
 )
 
 
-_CLIENTHASH = _descriptor.Descriptor(
-  name='ClientHash',
-  full_name='example.ClientHash',
+_CLIENTFILE = _descriptor.Descriptor(
+  name='ClientFile',
+  full_name='RSynce.ClientFile',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='simpleHash', full_name='example.ClientHash.simpleHash', index=0,
+      name='file', full_name='RSynce.ClientFile.file', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='clientHashes', full_name='RSynce.ClientFile.clientHashes', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=108,
+  serialized_end=190,
+)
+
+
+_CLIENTHASH = _descriptor.Descriptor(
+  name='ClientHash',
+  full_name='RSynce.ClientHash',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='simpleHash', full_name='RSynce.ClientHash.simpleHash', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='complicatedHash', full_name='example.ClientHash.complicatedHash', index=1,
+      name='complicatedHash', full_name='RSynce.ClientHash.complicatedHash', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -141,42 +134,35 @@ _CLIENTHASH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=215,
-  serialized_end=272,
+  serialized_start=192,
+  serialized_end=249,
 )
 
 
 _SERVERRESPONSE = _descriptor.Descriptor(
   name='ServerResponse',
-  full_name='example.ServerResponse',
+  full_name='RSynce.ServerResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='newFiles', full_name='example.ServerResponse.newFiles', index=0,
+      name='newFiles', full_name='RSynce.ServerResponse.newFiles', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='timestamp', full_name='example.ServerResponse.timestamp', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='deletedFiles', full_name='example.ServerResponse.deletedFiles', index=2,
-      number=3, type=11, cpp_type=10, label=3,
+      name='deletedFiles', full_name='RSynce.ServerResponse.deletedFiles', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='editedFiles', full_name='example.ServerResponse.editedFiles', index=3,
-      number=4, type=11, cpp_type=10, label=3,
+      name='editedFiles', full_name='RSynce.ServerResponse.editedFiles', index=2,
+      number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -193,27 +179,27 @@ _SERVERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=275,
-  serialized_end=425,
+  serialized_start=252,
+  serialized_end=380,
 )
 
 
 _EDITEDFILE = _descriptor.Descriptor(
   name='EditedFile',
-  full_name='example.EditedFile',
+  full_name='RSynce.EditedFile',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='filename', full_name='example.EditedFile.filename', index=0,
+      name='filename', full_name='RSynce.EditedFile.filename', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='fileEdits', full_name='example.EditedFile.fileEdits', index=1,
+      name='fileEdits', full_name='RSynce.EditedFile.fileEdits', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -231,41 +217,41 @@ _EDITEDFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=427,
-  serialized_end=495,
+  serialized_start=382,
+  serialized_end=449,
 )
 
 
 _FILEEDIT = _descriptor.Descriptor(
   name='FileEdit',
-  full_name='example.FileEdit',
+  full_name='RSynce.FileEdit',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='isBlockNumber', full_name='example.FileEdit.isBlockNumber', index=0,
+      name='isBlockNumber', full_name='RSynce.FileEdit.isBlockNumber', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='blockNumber', full_name='example.FileEdit.blockNumber', index=1,
+      name='blockNumber', full_name='RSynce.FileEdit.blockNumber', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='numBlocks', full_name='example.FileEdit.numBlocks', index=2,
+      name='numBlocks', full_name='RSynce.FileEdit.numBlocks', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='fileContent', full_name='example.FileEdit.fileContent', index=3,
+      name='fileContent', full_name='RSynce.FileEdit.fileContent', index=3,
       number=4, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -283,27 +269,27 @@ _FILEEDIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=497,
-  serialized_end=591,
+  serialized_start=451,
+  serialized_end=545,
 )
 
 
 _NEWFILE = _descriptor.Descriptor(
   name='NewFile',
-  full_name='example.NewFile',
+  full_name='RSynce.NewFile',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='file', full_name='example.NewFile.file', index=0,
+      name='file', full_name='RSynce.NewFile.file', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='fileContent', full_name='example.NewFile.fileContent', index=1,
+      name='fileContent', full_name='RSynce.NewFile.fileContent', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -321,27 +307,27 @@ _NEWFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=593,
-  serialized_end=652,
+  serialized_start=547,
+  serialized_end=605,
 )
 
 
 _FILE = _descriptor.Descriptor(
   name='File',
-  full_name='example.File',
+  full_name='RSynce.File',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='filename', full_name='example.File.filename', index=0,
+      name='filename', full_name='RSynce.File.filename', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='isDirectory', full_name='example.File.isDirectory', index=1,
+      name='isDirectory', full_name='RSynce.File.isDirectory', index=1,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -359,8 +345,8 @@ _FILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=654,
-  serialized_end=699,
+  serialized_start=607,
+  serialized_end=652,
 )
 
 _CLIENTREQUEST.fields_by_name['clientFiles'].message_type = _CLIENTFILE
@@ -384,56 +370,56 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 ClientRequest = _reflection.GeneratedProtocolMessageType('ClientRequest', (_message.Message,), dict(
   DESCRIPTOR = _CLIENTREQUEST,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.ClientRequest)
+  # @@protoc_insertion_point(class_scope:RSynce.ClientRequest)
   ))
 _sym_db.RegisterMessage(ClientRequest)
 
 ClientFile = _reflection.GeneratedProtocolMessageType('ClientFile', (_message.Message,), dict(
   DESCRIPTOR = _CLIENTFILE,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.ClientFile)
+  # @@protoc_insertion_point(class_scope:RSynce.ClientFile)
   ))
 _sym_db.RegisterMessage(ClientFile)
 
 ClientHash = _reflection.GeneratedProtocolMessageType('ClientHash', (_message.Message,), dict(
   DESCRIPTOR = _CLIENTHASH,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.ClientHash)
+  # @@protoc_insertion_point(class_scope:RSynce.ClientHash)
   ))
 _sym_db.RegisterMessage(ClientHash)
 
 ServerResponse = _reflection.GeneratedProtocolMessageType('ServerResponse', (_message.Message,), dict(
   DESCRIPTOR = _SERVERRESPONSE,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.ServerResponse)
+  # @@protoc_insertion_point(class_scope:RSynce.ServerResponse)
   ))
 _sym_db.RegisterMessage(ServerResponse)
 
 EditedFile = _reflection.GeneratedProtocolMessageType('EditedFile', (_message.Message,), dict(
   DESCRIPTOR = _EDITEDFILE,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.EditedFile)
+  # @@protoc_insertion_point(class_scope:RSynce.EditedFile)
   ))
 _sym_db.RegisterMessage(EditedFile)
 
 FileEdit = _reflection.GeneratedProtocolMessageType('FileEdit', (_message.Message,), dict(
   DESCRIPTOR = _FILEEDIT,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.FileEdit)
+  # @@protoc_insertion_point(class_scope:RSynce.FileEdit)
   ))
 _sym_db.RegisterMessage(FileEdit)
 
 NewFile = _reflection.GeneratedProtocolMessageType('NewFile', (_message.Message,), dict(
   DESCRIPTOR = _NEWFILE,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.NewFile)
+  # @@protoc_insertion_point(class_scope:RSynce.NewFile)
   ))
 _sym_db.RegisterMessage(NewFile)
 
 File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), dict(
   DESCRIPTOR = _FILE,
   __module__ = 'protocols_pb2'
-  # @@protoc_insertion_point(class_scope:example.File)
+  # @@protoc_insertion_point(class_scope:RSynce.File)
   ))
 _sym_db.RegisterMessage(File)
 
@@ -459,7 +445,7 @@ try:
         channel: A grpc.Channel.
       """
       self.RsyncMethod = channel.unary_unary(
-          '/example.RsyncService/RsyncMethod',
+          '/RSynce.RsyncService/RsyncMethod',
           request_serializer=ClientRequest.SerializeToString,
           response_deserializer=ServerResponse.FromString,
           )
@@ -486,7 +472,7 @@ try:
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'example.RsyncService', rpc_method_handlers)
+        'RSynce.RsyncService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -526,13 +512,13 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
-      ('example.RsyncService', 'RsyncMethod'): ClientRequest.FromString,
+      ('RSynce.RsyncService', 'RsyncMethod'): ClientRequest.FromString,
     }
     response_serializers = {
-      ('example.RsyncService', 'RsyncMethod'): ServerResponse.SerializeToString,
+      ('RSynce.RsyncService', 'RsyncMethod'): ServerResponse.SerializeToString,
     }
     method_implementations = {
-      ('example.RsyncService', 'RsyncMethod'): face_utilities.unary_unary_inline(servicer.RsyncMethod),
+      ('RSynce.RsyncService', 'RsyncMethod'): face_utilities.unary_unary_inline(servicer.RsyncMethod),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
     return beta_implementations.server(method_implementations, options=server_options)
@@ -545,16 +531,16 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
-      ('example.RsyncService', 'RsyncMethod'): ClientRequest.SerializeToString,
+      ('RSynce.RsyncService', 'RsyncMethod'): ClientRequest.SerializeToString,
     }
     response_deserializers = {
-      ('example.RsyncService', 'RsyncMethod'): ServerResponse.FromString,
+      ('RSynce.RsyncService', 'RsyncMethod'): ServerResponse.FromString,
     }
     cardinalities = {
       'RsyncMethod': cardinality.Cardinality.UNARY_UNARY,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'example.RsyncService', cardinalities, options=stub_options)
+    return beta_implementations.dynamic_stub(channel, 'RSynce.RsyncService', cardinalities, options=stub_options)
 except ImportError:
   pass
 # @@protoc_insertion_point(module_scope)
