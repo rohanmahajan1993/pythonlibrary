@@ -1,4 +1,3 @@
-
 import grpc
 import time
 
@@ -6,7 +5,6 @@ import protocols_pb2_grpc
 import server_helper
 
 from concurrent import futures
-
 
 class Rsync(protocols_pb2_grpc.RsyncServiceServicer):
     def RsyncMethod(self, request, context):
@@ -24,5 +22,5 @@ def serve():
     except KeyboardInterrupt:
         server.stop(0)
 
-
-serve()
+if __name__ == "__main__": 
+    serve()

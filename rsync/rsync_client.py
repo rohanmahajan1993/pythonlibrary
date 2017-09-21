@@ -13,4 +13,5 @@ def run(clientPrefix, requestedFilename):
   response = stub.RsyncMethod(clientRequest)
   client_helper.process_client_directory(clientPrefix, response)
   print("Client succesfully finished")
-run("clientprefix", "data")
+if __name__ == "__main__":
+    run("clientprefix", "data")
