@@ -2,6 +2,7 @@ import file_reader
 import protocols_pb2
 
 import hashlib
+import sys
 import os
 import time
 import zlib
@@ -24,7 +25,7 @@ def analyze_client_files(timestamp, clientFiles, deletedFiles, editedFiles):
         clientFileNames[filename] = clientFile.file.isDirectory
         if os.path.exists(filename) and os.path.isdir(
                 filename) == clientFile.file.isDirectory:
-            print "the filename is", filename
+            print "the filename in clientFileNames", filename
             last_modified_time = os.path.getmtime(filename)
             if last_modified_time > timestamp and not clientFile.file.isDirectory:
                 analyze_client_file(clientFile, editedFiles)
@@ -46,6 +47,7 @@ def create_client_hashmap(clientFile):
     for clientHash in clientFile.clientHashes:
         hashList = clientHashMap.get(clientHash.simpleHash, [])
         hashList.append((blockNumber, clientHash.complicatedHash))
+        clientHashMap[clientHash.simpleHash] = hashList
         blockNumber += 1
     return clientHashMap
 
@@ -60,13 +62,13 @@ which consist of zero changes.
 def fileEditHelper(editedFiles,
                    fileEdits,
                    isBlockNumber,
-                   fileName,
+                   filename,
                    blockNumber=0,
                    fileContent="",
                    numBlocks=0):
-    if fileEdits == None:
+    if not fileEdits:
         editedFile = editedFiles.add()
-        editedFile.fileName = fileName
+        editedFile.filename = filename
         fileEdits = editedFile.fileEdits
     fileEdit = fileEdits.add()
     fileEdit.isBlockNumber = isBlockNumber
@@ -88,18 +90,20 @@ For instance, instead of having two fileEdits that both contain raw bytes, we in
 def analyze_client_file(clientFile, editedFiles):
     fileEdits = None
     clientHashMap = create_client_hashmap(clientFile)
-    print clientFile.file.filename
+    print "in analyze client file", clientFile.file.filename
+    import pdb
+    pdb.set_trace()
     with open(clientFile.file.filename, "rb") as fp:
         new_bytes = fp.read(file_reader.BLOCK_SIZE)
         current_bytes = ""
         numBlocks = 0
-        previousBlock = -5
+        previousBlock = - sys.maxint
         while new_bytes != "":
             simpleHash = zlib.adler32(new_bytes)
             foundBlockMatch = False
             if simpleHash in clientHashMap:
                 complicatedServerHash = file_reader.generateComplicatedHash(
-                    bytes)
+                    new_bytes)
                 hashList = clientHashMap[simpleHash]
                 for blockNumber, complicatedHash in hashList:
                     if complicatedHash == complicatedServerHash:
@@ -109,20 +113,21 @@ def analyze_client_file(clientFile, editedFiles):
                             fileEdits = fileEditHelper(
                                 editedFiles,
                                 fileEdits,
-                                clientFile.file.fileName,
                                 False,
+                                clientFile.file.filename,
                                 fileContent=current_bytes)
                             current_bytes = ""
                         elif blockNumber - numBlocks == previousBlock:
                             numBlocks += 1
                         else:
-                            fileEdits = fileEditHelper(
-                                editedFiles,
-                                fileEdits,
-                                clientFile.file.fileName,
-                                True,
-                                blockNumber=previousBlock,
-                                numBlocks=numBlocks)
+                            if numBlocks != 0:
+                                fileEdits = fileEditHelper(
+                                    editedFiles,
+                                    fileEdits,
+                                    True,
+                                    clientFile.file.filename,
+                                    blockNumber=previousBlock,
+                                    numBlocks=numBlocks)
                             numBlocks = 1
                             previousBlock = blockNumber
             if not foundBlockMatch:
@@ -130,27 +135,27 @@ def analyze_client_file(clientFile, editedFiles):
                     fileEdits = fileEditHelper(
                         editedFiles,
                         fileEdits,
-                        clientFile.file.fileName,
                         True,
+                        clientFile.file.filename,
                         blockNumber=previousBlock,
                         numBlocks=numBlocks)
                     numBlocks = 0
-                    current_bytes += new_bytes[0]
+                current_bytes += new_bytes[0]
                 new_bytes = new_bytes[1:] + fp.read(1)
         if numBlocks != 0:
             fileEdits = fileEditHelper(
                 editedFiles,
                 fileEdits,
-                clientFile.file.fileName,
                 True,
+                clientFile.file.filename,
                 blockNumber=previousBlock,
                 numBlocks=numBlocks)
         elif current_bytes != "":
             fileEdits = fileEditHelper(
                 editedFiles,
                 fileEdits,
-                clientFile.file.fileName,
                 False,
+                clientFile.file.filename,
                 fileContent=current_bytes)
 """
 This method find all the new files, files that exist on the server
@@ -180,10 +185,10 @@ This is the root parent method and is responsible for finding all the edited, de
 """
 def process_server_directory(clientRequest):
     serverResponse = protocols_pb2.ServerResponse()
-    serverResponse.timestamp = time.time()
     clientFileNames = analyze_client_files(
         clientRequest.timestamp, clientRequest.clientFiles,
         serverResponse.deletedFiles, serverResponse.editedFiles)
     find_new_files(clientRequest.directoryName, clientFileNames,
                          serverResponse.newFiles)
+    serverResponse.timestamp = time.time()
     return serverResponse

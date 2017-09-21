@@ -40,17 +40,18 @@ This method recursively goes through every file and directory and creates the ch
 We do not create checksums for directory and just include the name.
 """
 def generate_client_hashes(prefix, basefile, clientRequest):
+     currentDirectory = os.getcwd()
      clientName = os.path.join(prefix, basefile)
      tuples = os.walk(clientName) 
      for directory, _, filenames in tuples:
        clientFile = clientRequest.clientFiles.add()
        clientFile.file.isDirectory = True
-       clientFile.file.filename = directory
+       clientFile.file.filename = os.path.relpath(directory, prefix)
        for filename in filenames:        
           full_name = os.path.join(directory, filename)
           if not os.path.isdir(full_name):
 	    clientFile = clientRequest.clientFiles.add()
-            clientFile.file.filename = full_name
+            clientFile.file.filename = os.path.relpath(full_name, prefix)
             generate_checksum(full_name, clientFile.clientHashes)
 
 # Analyzing Server Response
@@ -74,7 +75,7 @@ def base_iterator(files, filenameExtractor, prefix, handler):
     for file in files:
         filename = filenameExtractor(file)
         clientname = os.path.join(prefix, filename)
-        handler(clientname)
+        handler(clientname, file)
 """
 This handler stuff is slightly unelegant because we have to have two different
 name extractor. This is because editedFiles can not be a directory and for deletedFiles
@@ -93,6 +94,7 @@ because this happends automatically when we create the files. Additionally, we d
 to worry about any weird out of order issues based on the order we process the files on the server.
 """
 def handle_new_file(filename, newFile):
+    print "the new file name is", filename
     if newFile.file.isDirectory:
 	os.mkdir(filename)
     else:
@@ -101,6 +103,7 @@ def handle_new_file(filename, newFile):
 This method deletes files and directories, that were found on the client but not on the server. 
 """
 def handle_deleted_file(filename, deletedFile):
+        print "the deleted file name is", filename
         if deletedFile.isDirectory: 
             os.rmdir(filename)
         else:
@@ -111,6 +114,8 @@ we create a new file called temp.txt, while still using the oldFile, and once
 we're done, rename this tempfile to the appropriate fileName.
 """
 def handle_edited_file(filename, editedFile):
+        import pdb
+        pdb.set_trace()
         with open(".TEMP", "wb") as newFile:
             with open(filename, "rb") as oldFile:
                 for fileEdit in editedFile.fileEdits:

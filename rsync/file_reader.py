@@ -4,7 +4,7 @@ import protocols_pb2
 import time
 import zlib
 
-BLOCK_SIZE = 8192
+BLOCK_SIZE = 5
 
 """
 Wrapper for creating the complicated hash.
@@ -17,14 +17,14 @@ def generateComplicatedHash(bytes):
     return complicatedHash
 
 """
-Wrapper for reading file
+Wrapper for file reading
 """
 def file_read(filename):
   with open(filename, "rb") as fp:
     bytes = fp.read()
     return bytes
 """
-Wrapper for file friting
+Wrapper for file writing
 """
 def file_write(filename, bytes):
   with open(filename, "wb") as fp:
