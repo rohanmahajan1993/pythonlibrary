@@ -128,6 +128,7 @@ def analyze_client_file(clientFile, editedFiles):
                                     numBlocks=numBlocks)
                             numBlocks = 1
                             previousBlock = blockNumber
+                        break
             if not foundBlockMatch:
                 if numBlocks != 0:
                     fileEdits = fileEditHelper(
@@ -140,7 +141,7 @@ def analyze_client_file(clientFile, editedFiles):
                     numBlocks = 0
                 current_bytes += new_bytes[0]
                 new_bytes = new_bytes[1:] + fp.read(1)
-        if numBlocks != 0 and not fileEdits:
+        if numBlocks != 0 and fileEdits:
             fileEdits = fileEditHelper(
                 editedFiles,
                 fileEdits,

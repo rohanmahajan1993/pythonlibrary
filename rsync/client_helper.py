@@ -77,6 +77,7 @@ def simple_name_extractor(file):
 
 def complicated_name_extractor(file):
     return file.file.filename 
+
 """
 This method either creates new directories or new files with the appropriate content.
 We don't worry about initializing the directories with the appropriate list of files
@@ -90,7 +91,7 @@ def handle_new_file(filename, newFile):
     else:
         file_reader.file_write(filename, newFile.fileContent)
 """
-This method deletes files and directories, that were found on the client but not on the server.If we are deleting a directory, we delete everything inside of it because we do not efficiently
+This method deletes files and directories, that were found on the client but not on the server. If we are deleting a directory, we delete everything inside of it because we do not efficiently
 handle directory renames. This is also why we have the os.path.exists check in case we already
 deleted a file.
 """
