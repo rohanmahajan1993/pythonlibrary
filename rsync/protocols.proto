@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package example;
+package RSynce;
 
 service RsyncService {
  rpc RsyncMethod (ClientRequest) returns (ServerResponse) {};
@@ -46,9 +46,7 @@ message NewFile {
  bytes fileContent = 2;
 }
 
-
 message File {
  string filename = 1;
  bool isDirectory = 2;
 }
-
