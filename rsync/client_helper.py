@@ -99,7 +99,7 @@ we create a new file called temp.txt, while still using the oldFile, and once
 we're done, rename this tempfile to the appropriate fileName.
 """
 def handle_edited_file(filename, editedFile):
-        with open("TEMP", "wb") as newFile:
+        with open(".TEMP", "wb") as newFile:
             with open(filename, "rb") as oldFile:
                 for fileEdit in editedFile.fileEdits:
                     if fileEdit.isBlockNumber:
@@ -108,4 +108,4 @@ def handle_edited_file(filename, editedFile):
                     else:
                          bytes = fileEdit.fileContent
                     newFile.write(bytes)
-
+        os.rename(".TEMP", filename) 
