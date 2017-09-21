@@ -19,9 +19,7 @@ The first time rsync client is used, the timestamp won't exist.
 
 def get_time(clientRequest):
     if os.path.exists(".time"):
-        bytes = file_reader.file_read(".time")
-        clientRequest.timestamp = bytes
-
+        clientRequest.timestamp = float(bytes)
 
 """
 This method is responsible for generating the checksums for a specific file.
@@ -60,11 +58,11 @@ def generate_client_hashes(prefix, basefile, clientRequest):
 This method is responsible for handling the server response and using it to update the client response. The four components
 are deleting files, creating new files, and editing files and updating the timestamp.
 """
-def process_client_directory(prefix, ServerResponse):
-    base_iterator(ServerResponse.deletedFiles, simple_name_extractor, prefix, handle_deleted_file)
-    base_iterator(ServerResponse.newFiles, complicated_name_extractor, prefix, handle_new_file)
-    base_iterator(ServerResponse.editedFiles, simple_name_extractor, prefix, handle_edited_file)
-    file_reader.file_write(".time", ServerResponse.timestamp) 
+def process_client_directory(prefix, serverResponse):
+    base_iterator(serverResponse.deletedFiles, simple_name_extractor, prefix, handle_deleted_file)
+    base_iterator(serverResponse.newFiles, complicated_name_extractor, prefix, handle_new_file)
+    base_iterator(serverResponse.editedFiles, simple_name_extractor, prefix, handle_edited_file)
+    file_reader.file_write(".time", str(serverResponse.timestamp)) 
 
 """
 Method that iterates through all of the files, regardless of type, and adds
