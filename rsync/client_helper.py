@@ -19,6 +19,7 @@ The first time rsync client is used, the timestamp won't exist.
 
 def get_time(clientRequest):
     if os.path.exists(".time"):
+        bytes = file_reader.file_read(".time")
         clientRequest.timestamp = float(bytes)
 
 """
@@ -62,7 +63,8 @@ def process_client_directory(prefix, serverResponse):
     base_iterator(serverResponse.deletedFiles, simple_name_extractor, prefix, handle_deleted_file)
     base_iterator(serverResponse.newFiles, complicated_name_extractor, prefix, handle_new_file)
     base_iterator(serverResponse.editedFiles, simple_name_extractor, prefix, handle_edited_file)
-    file_reader.file_write(".time", str(serverResponse.timestamp)) 
+    bytes = str(serverResponse.timestamp)
+    file_reader.file_write(".time", bytes) 
 
 """
 Method that iterates through all of the files, regardless of type, and adds
